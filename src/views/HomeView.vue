@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <base-head>Featured</base-head>
-    <FeaturedSlider class="main-section" />
-    <base-head>All Movies</base-head>
+    <FeaturedSliderThree />
+    <base-head style="margin-left: 10px">All Movies</base-head>
     <AllItems class="main-section" />  
   </div>
 </template>
@@ -10,6 +9,7 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import BaseHead from "../components/ui/BaseHead.vue";
+import FeaturedSliderThree from "../components/FeaturedSliderThree.vue";
 import FeaturedSliderTwo from "../components/FeaturedSliderTwo.vue";
 import FeaturedSlider from "../components/FeaturedSlider.vue";
 import AllItems from "../components/AllItems.vue";
@@ -20,14 +20,15 @@ export default {
     FeaturedSlider,
     AllItems,
     BaseHead,
-    FeaturedSliderTwo
+    FeaturedSliderTwo,
+    FeaturedSliderThree
   },
   computed: {
     color1() {
       return this.$store.getters.getPrimaryColor;
     },
     color2() {
-      return this.$store.getters.getSecondaryColor;
+      return this.$store.getters.getTextColor;
     },
   },
 };
@@ -35,13 +36,13 @@ export default {
 
 <style scoped>
 .container {
-  width: 95%;
+  width: 100%;
   position: relative;
   z-index: 0;
   margin: auto
 }
 .main-section{
   margin-top: 40px;
-  margin-bottom: 40px
 }
+
 </style>

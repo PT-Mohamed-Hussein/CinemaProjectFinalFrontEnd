@@ -10,22 +10,7 @@
                     <a href=''><font-awesome-icon icon="fa-brands fa-instagram" class="icon"/></a>
                 </div>
             </div>
-            <div class="google-map" id="location">
-                Our Location
-                <GMapMap
-                    :center="center"
-                    :zoom="7"
-                    map-type-id="terrain"
-                    style="width: 500px; height: 300px"
-                >
-                    <GMapCluster>
-                        <GMapMarker
-                            :position="position"
-                            :clickable="true"
-                        />
-                    </GMapCluster>
-                </GMapMap>
-            </div>
+            
         </section>
         <section class="copyright">
             <h4>© 2022 Watch This Cinemas. All rights protected.</h4>
@@ -40,7 +25,7 @@ export default {
             return this.$store.getters.getPrimaryColor;
         },
         color2() {
-            return this.$store.getters.getSecondaryColor;
+            return this.$store.getters.getTextColor;
         },
     },
     data() {
@@ -107,5 +92,10 @@ export default {
     .copyright{
         display: flex;
         justify-content: center;
+    }
+    @media (max-width: 425px) {
+        .copyright h4{
+            font-size: 0.7em
+        }
     }
 </style>

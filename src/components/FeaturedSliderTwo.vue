@@ -44,7 +44,7 @@ export default {
       return this.$store.getters.getPrimaryColor;
     },
     color2() {
-      return this.$store.getters.getSecondaryColor;
+      return this.$store.getters.getTextColor;
     },
   },
   data() {

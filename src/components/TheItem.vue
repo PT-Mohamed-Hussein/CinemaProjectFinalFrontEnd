@@ -1,5 +1,5 @@
 <template>
-    <div class="film-cont" :style="{'--bg-img': `url(${picture})`}" :class="[category ? `${category}` : '', featured ? `featured`: '']" >
+    <div class="film-cont" :data-category="category" :style="{'--bg-img': `url(${picture})`, '--tag': `${category}`}" :class="[category == 'action' || category == 'horror' || category == 'drama' ? `${category}` : 'normal-categ', featured ? 'featured' : '']" >
         <div class="rate-cont">
             <font-awesome-layers full-width class="fa-2x">
                 <font-awesome-icon icon="fa-solid fa-star"/>
@@ -17,9 +17,20 @@ export default {
             return this.$store.getters.getPrimaryColor;
         },
         color2() {
+            return this.$store.getters.getTextColor;
+        },
+        color3() {
             return this.$store.getters.getSecondaryColor;
         },
+        color4() {
+            return this.$store.getters.getExecColor;
+        },
+        featured(){
+            const FMovies = this.$store.getters.FeaturedMovies
+            return FMovies.find((e) => e._id == this.movieID)
+        }
     },
+
     props: {
         title: {
             type: String,
@@ -49,11 +60,6 @@ export default {
             required: false,
             default: "99999 hrs"
         },
-        featured: {
-            type: Boolean,
-            required: false,
-            default: false
-        },
         movieID: {
             type: String,
             required: true
@@ -69,17 +75,19 @@ export default {
 
 <style scoped>
     .film-link{
-        color: v-bind(color1);
+        color: v-bind(color2);
         cursor: pointer;
         text-decoration: none;
         font-weight: 600;
         font-size: 1.2em;
         display: flex;
         justify-content: center;
-        transition: all 0.3s
+        transition: all 0.3s;
+        text-transform: capitalize;
+        text-align: center
     }
     .film-link:hover{
-        color: rgb(38, 0, 255)
+        color: v-bind(color4)
     }
     .film-cont{
         width: 100%;
@@ -90,8 +98,8 @@ export default {
         border-radius: 10px;
         position: relative;
     }
-    .action::before, .horror::before, .drama::before {
-        content: 'action';
+    .action::before, .horror::before, .drama::before, .normal-categ::before {
+        content: attr(data-category);
         position: absolute;
         top: 10px;
         right: -10px;
@@ -134,6 +142,10 @@ export default {
         position: absolute;
         bottom: 10px;
         right: 10px;
+    }
+    .rate-cont .fa-layers span.fa-layers-text{
+        font-size: 0.8em;
+        font-weight: 600;
     }
     .gray8{
         color: #333;

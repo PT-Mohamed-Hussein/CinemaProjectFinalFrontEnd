@@ -4,15 +4,25 @@ import actions from "./actions.js";
 import getters from "./getters.js";
 
 const store = createStore({
-  state() {
-    return {
-      primaryColor: "#2a353e",
-      secondaryColor: "#e8e7d7",
-      isLoggeedIn: true,
-    };
-  },
-  mutations,
-  actions,
-  getters,
+    state() {
+        return {
+            notifId: 1,
+            primaryColor: "#000",
+            secondaryColor: "#212121",
+            primaryText: "white",
+            execlusiveColor: "goldenrod",
+            accessToken: false,
+            notifs: [],
+            isAdmin: false,
+            userInfo: null,
+            AllMovies: [],
+            FeaturedMovies: [],
+            LoadingMessage: '',
+            isLoading: false
+        };
+    },
+    mutations,
+    actions,
+    getters,
 });
 export default store;

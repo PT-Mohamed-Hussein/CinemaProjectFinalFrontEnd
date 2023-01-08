@@ -6,12 +6,15 @@
         <div class="mail">
           <input
             type="text"
-            name="username"
-            id="username"
+            name="email"
+            id="email"
             class="inputfield"
-            v-model="username"
+            v-model="email"
+            @change="CheckField('email')"
+
           />
-          <span class="info" :class="!!username ? 'valid' : ''">username</span>
+          <span class="info" :class="!!email ? 'valid' : ''">email</span>
+          <p class="error" v-if="!!error.email">Please Enter Valid E-mail</p>
         </div>
         <div class="password">
           <input
@@ -20,6 +23,7 @@
             id="password"
             class="inputfield"
             v-model="password"
+            @change="CheckField('password')"
           />
           <span class="info" :class="!!password ? 'valid' : ''">Password</span>
           <font-awesome-icon
@@ -34,6 +38,7 @@
             v-else
             @click="changePassType"
           />
+          <p class="error" v-if="!!error.password">{{error.password}}</p>
         </div>
       </div>
       <div class="signup">
@@ -43,26 +48,19 @@
           </RouterLink></span
         >
       </div>
-      <div class="rememberme">
-        <input
-          type="checkbox"
-          name="rememberme"
-          id="rememberme"
-          v-model="remember"
-        />
-        <label for="rememberme">Remember Me</label>
-      </div>
       <div class="submit">
-        <button>Login</button>
+        <button @click="ConfirmLogin" :disabled="disabledBtn">Login</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { fromJSON } from "postcss";
 import { RouterLink } from "vue-router";
 
 import mix from "../mixin/mixins";
+import router from "../router";
 export default {
   components: { RouterLink },
   computed: {
@@ -70,16 +68,79 @@ export default {
       return this.$store.getters.getPrimaryColor;
     },
     color2() {
+      return this.$store.getters.getTextColor;
+    },
+    color3() {
       return this.$store.getters.getSecondaryColor;
+    },
+    color4() {
+      return this.$store.getters.getExecColor;
     },
   },
   mixins: [mix],
   data() {
     return {
-      username: null,
+      disabledBtn: false,
+      email: null,
       password: null,
-      remember: null,
+      error: {
+        email: false,
+        password: false,
+      }
     };
+  },
+  methods: {
+    async ConfirmLogin() {
+      // form validation required here
+      if (!this.email) this.error.email = true
+      if (!this.password) this.error.password = 'Please Enter Valid Password'
+      if (!!this.error.password || this.error.email ) return
+      this.disabledBtn = true
+      let notifId = this.$store.getters.getNotifId
+      await this.$store.dispatch('addNotif', {id: notifId, type: "warn", title: "Loging In.. ", desc: "Verfying Your Info With The Server"})
+      //lodaing and error modal modal required here
+      try {
+        const result = await this.$store.dispatch("Login", {
+          email: this.email,
+          password: this.password,
+        });
+        if (result.ok) {
+          await this.$store.dispatch("HandleMovies")
+          this.$store.dispatch('removeNotifById', {id: notifId})
+          this.$router.push('/')
+          this.disabledBtn = false
+        }else{
+          const resp = await result.json()
+          const err = new Error(resp.message)
+          throw err
+        }
+      }catch(err) {
+        this.$store.dispatch('removeNotifById', {id: notifId})
+        let newNotifId = this.$store.getters.getNotifId
+        await this.$store.dispatch('addNotif', { id: newNotifId, type: "error", title: "Failed!", desc: err.message})
+        this.disabledBtn = false
+      }
+    },
+    CheckField(type){
+      switch(type){
+        case 'email':
+          if (!this.email.includes('@') || this.email.length == 0) {
+            this.error.email = true
+            break
+          }
+          this.error.email = false
+          break;
+        case 'password':
+          if (!this.password || this.password.length == 0) {
+            this.error.password = 'Password Is Required' 
+            break
+          }
+          this.error.password = false
+          break
+        default :
+          break
+      }
+    }
   },
 };
 </script>
@@ -98,6 +159,8 @@ export default {
   color: v-bind(color2);
   text-transform: uppercase;
   letter-spacing: 10px;
+  width: 100%;
+  text-align: center;
 }
 .forumContainer {
   display: flex;
@@ -108,10 +171,25 @@ export default {
   transform: translateX(-50%);
   width: 40%;
   position: relative;
-  padding: 4rem;
+  padding: 4rem 20px;
   border-radius: 20px;
   justify-items: center;
   border: 1px solid black;
+}
+@media (max-width: 1192px) {
+  .forumContainer{
+    width: 45%
+  }
+}
+@media (max-width: 720px) {
+  .forumContainer{
+    width: 80%
+  }
+}
+@media (max-width: 540px) {
+  .forumContainer{
+    width: 90%
+  }
 }
 .forum {
   width: 100%;
@@ -119,6 +197,10 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+}
+.forum div{
+  width: 90%;
+  
 }
 .mail,
 .password {
@@ -128,7 +210,7 @@ export default {
   outline: none;
   border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 10px;
-  width: 400px;
+  width: 98%;
   background-color: v-bind(color1);
   border-radius: 10px;
   font-size: 1em;
@@ -183,7 +265,7 @@ export default {
   font-size: 1.1em;
 }
 .signup {
-  color: #89acc9;
+  color: v-bind(color4);
 }
 .signupbutton {
   color: v-bind(color2);
@@ -219,5 +301,13 @@ export default {
 .submit button:hover {
   background-color: #696861;
   color: #b5b194;
+}
+
+
+.error{
+  padding-left:10px;
+  padding-top: 5px;
+  color: red;
+  font-size: 12px;
 }
 </style>

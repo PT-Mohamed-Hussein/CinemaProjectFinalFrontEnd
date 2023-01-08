@@ -37,10 +37,16 @@ export default {
     components: { RouterLink },
     computed: {
         color1() {
-            return this.$store.getters.getPrimaryColor;
+          return this.$store.getters.getPrimaryColor;
         },
         color2() {
-            return this.$store.getters.getSecondaryColor;
+          return this.$store.getters.getTextColor;
+        },
+        color3() {
+          return this.$store.getters.getSecondaryColor;
+        },
+        color4() {
+          return this.$store.getters.getExecColor;
         },
     },
     data() {
@@ -157,7 +163,7 @@ textarea {
   font-size: 1.1em;
 }
 .signup {
-  color: #89acc9;
+  color: v-bind(color4);
 }
 .signupbutton {
   color: v-bind(color2);

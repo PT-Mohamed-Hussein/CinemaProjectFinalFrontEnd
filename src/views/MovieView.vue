@@ -1,15 +1,15 @@
 <template>
     <div class="sub-cont">
-        <div class="img-preview" :style="{'--bg-img': `url(${Movie.picture}` }"></div>
+        <div class="img-preview" :style="{'--bg-img': `url(${Movie.Picture}` }"></div>
         <div class="ving-effect"></div>
         <div class="enligten-effect"></div>
         <div class="movie-duration">
-            <font-awesome-icon icon="fa-solid fa-clock" /> {{Movie.duration}}
+            <font-awesome-icon icon="fa-solid fa-clock" /> {{Movie.Duration}}
         </div>
         <div class="rate-cont">
             <font-awesome-layers full-width class="fa-4x">
                 <font-awesome-icon icon="fa-solid fa-star"/>
-                <font-awesome-layers-text class="gray8" transform="down-1 right-1 shrink-8" :value="Movie.rate" />
+                <font-awesome-layers-text class="gray8" transform="down-1 right-1 shrink-8" :value="Movie.rate || 5" />
             </font-awesome-layers>
         </div>
         <div class="trailer-cont" :class="ActiveTrailer ? 'active' : ''">
@@ -17,13 +17,13 @@
                 Watch Trailer 
             </h3>
             <iframe width="420" height="315"
-                :src="Movie.trailer">
+                :src="Movie.Trailer">
             </iframe>
         </div>
         <div class="movie-info">
-            <h1 class="movie-title">{{Movie.title}}</h1>
-            <h4 class="movie-dir"> By {{Movie.dir}}</h4>
-            <p class="movie-story">{{Movie.story}}</p>
+            <h1 class="movie-title">{{Movie.Title}}</h1>
+            <h4 class="movie-dir"> By {{Movie.Director}}</h4>
+            <p class="movie-story">{{Movie.Description}}</p>
             <router-link class="book-now" :to="`/book:${filmId}`" >Book Now ></router-link>
             <button class="watch-trailer" @click="TogTrailerState">Watch Trailer</button>
         </div>
@@ -37,21 +37,14 @@ export default {
         filmId () {
             return this.$route.params.id.substring(1, this.$route.params.id.length)
         },
+        Movie () {
+            return this.$store.getters.AllMovies.find((e) => e._id == this.filmId)
+        }
     },
+    
     data() {
         return {
             ActiveTrailer: false,
-            Movie:{
-                title: "Spider Man No Way Home",
-                rate: 5,
-                picture: "https://i.imgur.com/H5WhVj6.jpg",
-                story:
-                    "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-                dir: "Jon Watts",
-                duration: "2hrs",
-                id: "film-1",
-                trailer: 'https://www.youtube.com/embed/iU1W0QZod5s'
-            }, 
         }
     },
     methods: {
@@ -162,5 +155,34 @@ export default {
         color: gold;
         background-color: #333;
         border: 1px solid #333;
+    }
+    .rate-cont .fa-layers span.fa-layers-text{
+        font-size: 0.8em;
+        font-weight: 600;
+    }
+    @media (max-width: 768px) {
+        iframe{
+            width: 300px;
+            height: 200px
+        }
+    }
+    @media (max-width: 500px) {
+        iframe{
+            width: 250px;
+            height: 200px
+        }
+        .movie-title{
+            font-size: 1em
+        }
+        .movie-story{
+            font-size: 0.9em
+        }
+        .book-now, .watch-trailer{
+            font-size: 0.8em;
+            padding: 5px 10px;
+            margin: 5px;
+            max-height: 32px;
+            height: 29px
+        }
     }
 </style>

@@ -1,14 +1,14 @@
 <template>
-  <div class="feature-holder">
+  <div class="feature-holder" v-if="featuredMovies.length>0">
     <div class="curr-active">
-      <div class="curr-active-back active" id="active-back" :style="{'--bg-img-active': `url(${featuredMovies[currentIndex].picture})`}" ></div>
+      <div class="curr-active-back active" id="active-back" :style="{'--bg-img-active': `url(${featuredMovies[currentIndex].Picture})`}" ></div>
 
       <div
         id="img-preview"
         class="img-holder active-image"
         @mouseenter="startHoverEffect"
         @mouseleave="endHoverEffect"
-        :style="{'--bg-img': `url(${featuredMovies[currentIndex].picture})`}" 
+        :style="{'--bg-img': `url(${featuredMovies[currentIndex].Picture})`}" 
       >
         <div
           class="img-caption active-image-caption"
@@ -16,16 +16,16 @@
           style="--top: 10%"
         >
           <div class="img-title">
-            {{ featuredMovies[currentIndex].title }}
+            {{ featuredMovies[currentIndex].Title }}
           </div>
           <div class="img-info">
             <p class="img-duation">
               <font-awesome-icon icon="fa-solid fa-clock" />
-              {{ featuredMovies[currentIndex].duration }}
+              {{ featuredMovies[currentIndex].Duration }}
             </p>
-            <p class="img-auth">By : {{ featuredMovies[currentIndex].dir }}</p>
+            <p class="img-auth">By : {{ featuredMovies[currentIndex].Director }}</p>
           </div>
-          <div class="img-story">{{ featuredMovies[currentIndex].story }}</div>
+          <div class="img-story">{{ featuredMovies[currentIndex].Description }}</div>
         </div>
       </div>
     </div>
@@ -36,24 +36,24 @@
         <div
           class="sidebar-item"
           v-for="(movie, index) in featuredMovies"
-          :key="movie.id"
+          :key="movie._id"
           :class="index == currentIndex ? 'active' : ''"
           @click="setActiveImage(index)"
         >
           <div class="side-img-holder">
-            <img :src="movie.picture" />
+            <img :src="movie.Picture" />
           </div>
           <div class="side-info">
-            <p class="side-movie-title">{{ movie.title }}</p>
-            <p class="side-director">By {{ movie.dir }}</p>
+            <p class="side-movie-title">{{ movie.Title }}</p>
+            <p class="side-director">By {{ movie.Director }}</p>
           </div>
           <div class="side-subinfo">
             <p class="side-duration">
-              <font-awesome-icon icon="fa-solid fa-clock" />{{ movie.duration }}
+              <font-awesome-icon icon="fa-solid fa-clock" />{{ movie.Duration }}
             </p>
             <div class="side-rate">
               <p>
-                {{ movie.rate }}
+                {{ movie.rate || 5 }}
                 <font-awesome-icon
                   icon="fa-solid fa-star"
                   class="icon"
@@ -76,103 +76,14 @@ export default {
       return this.$store.getters.getPrimaryColor;
     },
     color2() {
-      return this.$store.getters.getSecondaryColor;
+      return this.$store.getters.getTextColor;
     },
+    featuredMovies() {
+      return this.$store.getters.FeaturedMovies
+    }
   },
   data() {
     return {
-      featuredMovies: [
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://i.imgur.com/H5WhVj6.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-1",
-        },
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://cdn.wallpapersafari.com/28/3/GmnYPS.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-2",
-        },
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://i.imgur.com/H5WhVj6.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-2",
-        },
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://i.imgur.com/H5WhVj6.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-1",
-        },
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://i.imgur.com/H5WhVj6.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-2",
-        },
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://i.imgur.com/H5WhVj6.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-2",
-        },
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://i.imgur.com/H5WhVj6.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-1",
-        },
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://i.imgur.com/H5WhVj6.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-2",
-        },
-        {
-          title: "Spider Man No Way Home",
-          rate: 5,
-          picture: "https://i.imgur.com/H5WhVj6.jpg",
-          story:
-            "With Spider-Man's identity now revealed, our friendly neighborhood web-slinger is unmasked and no longer able to separate his normal life as Peter Parker from the high stakes of being a superhero. When Peter asks for help from Doctor Strange, the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
-          dir: "Jon Watts",
-          duration: "2hrs",
-          id: "film-2",
-        },
-      ],
       currentIndex: 0,
       activeInterval: null,
     };
@@ -187,11 +98,11 @@ export default {
       back.classList.remove('active')
       caption.classList.remove("active-image-caption");
       setTimeout(() => {
-        img.style.setProperty('--bg-img', `url(${this.featuredMovies[this.currentIndex].picture}`);
-        back.style.setProperty('--bg-img-active', `url(${this.featuredMovies[this.currentIndex].picture}`);
         img.classList.add("active-image");
-        back.classList.add('active')
+        back.classList.add('active');
         caption.classList.add("active-image-caption");
+        img.style.setProperty('--bg-img', `url(${this.featuredMovies[this.currentIndex].Picture}`);
+        back.style.setProperty('--bg-img-active', `url(${this.featuredMovies[this.currentIndex].Picture}`);
       }, 1000);
     },
   },
@@ -292,6 +203,7 @@ export default {
 .img-caption {
   position: absolute;
   padding: 10px;
+  width: 100%;
   top: calc(100% - var(--top));
   background: rgb(42, 53, 62);
   background: linear-gradient(

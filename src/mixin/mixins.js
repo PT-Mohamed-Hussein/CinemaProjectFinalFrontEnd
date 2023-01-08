@@ -1,8 +1,10 @@
 const mix = {
   data() {
     return {
+      oldPasswordtype: 'password',
       passwordtype: "password",
       passwordconfirmationtype: "password",
+
     };
   },
   methods: {
@@ -18,6 +20,13 @@ const mix = {
         this.passwordconfirmationtype = "text";
       } else {
         this.passwordconfirmationtype = "password";
+      }
+    },
+    changeOldPasswordType() {
+      if (this.oldPasswordtype == "password") {
+        this.oldPasswordtype = "text";
+      } else {
+        this.oldPasswordtype = "password";
       }
     },
   },
