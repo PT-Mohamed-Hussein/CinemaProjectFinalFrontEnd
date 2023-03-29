@@ -112,7 +112,10 @@ export default {
             }
         },
         selectedparty(neww, _){
-            this.seats = this.Movie.Parties[this.date][neww]
+            if(neww != 'Pick Up Party Time'){
+
+                this.seats = this.Movie.Parties[this.date][neww]
+            }
         }
     },
     data() {
