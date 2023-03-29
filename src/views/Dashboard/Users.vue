@@ -59,7 +59,7 @@
     import BaseLabel from '../../components/Dashboard/BaseLabel.vue';
     import BaseModal from '../../components/ui/BaseModal.vue';
     import fetchRequest from '../../FetchApi';
-    const USER_API = 'http://127.0.0.1:3500/user'
+    const USER_API = 'https://watch-this-gjx8.onrender.com/user'
     export default {
         components: { Card, BaseLabel, BaseModal },
         created(){

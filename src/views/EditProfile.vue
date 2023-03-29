@@ -4,7 +4,7 @@
             <Loading v-if="isLoading"></Loading>
             <div class="sub-cont" v-show="!isLoading">
 
-                <div class="profile-pic-section" :style="{'--bg-img': `url('http://localhost:3500/images/cover.jpg')`}" v-if="ProfilePic && user.profilePicture">
+                <div class="profile-pic-section" :style="{'--bg-img': `url('https://watch-this-gjx8.onrender.com/images/cover.jpg')`}" v-if="ProfilePic && user.profilePicture">
                     <div class="rounded-corners"></div>
                     <img :src="ProfilePic || user.profilePicture" v-if="ProfilePic && user.profilePicture">
                     <input type="file" :disabled="disable" @change="UpdatePicture" name="profilepic" ref="ProfilePic" class="upload-input" title="Dimensions 512 X 512">
@@ -123,12 +123,12 @@ import fetchRequest from "../FetchApi";
 import Loading from "../components/ui/Loading.vue";
 import mix from "../mixin/mixins";
 
-const GET_MYUSER_API = 'http://127.0.0.1:3500/user/getmyuserinfo'
+const GET_MYUSER_API = 'https://watch-this-gjx8.onrender.com/user/getmyuserinfo'
 
-const UPLOAD_API = 'http://127.0.0.1:3500/upload'
-const PROFILE_PICTURE_SRC = 'http://127.0.0.1:3500/images/'
-const UPDATE_USER_API = 'http://127.0.0.1:3500/user'
-const CHANGE_PASSWORD = 'http://127.0.0.1:3500/changepassword'
+const UPLOAD_API = 'https://watch-this-gjx8.onrender.com/upload'
+const PROFILE_PICTURE_SRC = 'https://watch-this-gjx8.onrender.com/images/'
+const UPDATE_USER_API = 'https://watch-this-gjx8.onrender.com/user'
+const CHANGE_PASSWORD = 'https://watch-this-gjx8.onrender.com/changepassword'
 export default {
     components:{Loading},
     mixins: [mix],
@@ -427,7 +427,7 @@ export default {
             return this.$router.currentRoute.value.path || ''
         },
         normalPFP(){
-            return 'http://127.0.0.1/images/profile'
+            return 'https://watch-this-gjx8.onrender.com/images/profile'
         }
     },
     

@@ -1,6 +1,6 @@
 import store from "./store"
 
-const REFRESH_API = 'http://localhost:3500/refresh'
+const REFRESH_API = 'https://watch-this-gjx8.onrender.com/refresh'
 
 const fetchRequest = async(api, method, body, isupload) => {
     let requestArgs = {

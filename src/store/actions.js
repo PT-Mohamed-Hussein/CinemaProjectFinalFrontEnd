@@ -2,12 +2,12 @@ import store from "."
 import router from "../router"
 
 import fetchRequest from "../FetchApi"
-const registerAPI = 'http://localhost:3500/register'
-const loginAPI = 'http://localhost:3500/login'
-const refreshAPI = 'http://localhost:3500/refresh'
-const logoutAPI = 'http://localhost:3500/logout'
+const registerAPI = 'https://watch-this-gjx8.onrender.com/register'
+const loginAPI = 'https://watch-this-gjx8.onrender.com/login'
+const refreshAPI = 'https://watch-this-gjx8.onrender.com/refresh'
+const logoutAPI = 'https://watch-this-gjx8.onrender.com/logout'
 
-const MOVIES_API = 'http://127.0.0.1:3500/movies/'
+const MOVIES_API = 'https://watch-this-gjx8.onrender.com/movies/'
 
 
 const MOVIE_INFO_API = `https://api.themoviedb.org/3/movie/`

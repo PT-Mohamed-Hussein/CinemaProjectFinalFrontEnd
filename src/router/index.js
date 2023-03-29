@@ -151,7 +151,7 @@ const router = createRouter({
     ],
 });
 
-const AdminCheckAPI = 'http://127.0.0.1:3500/admincheck'
+const AdminCheckAPI = 'https://watch-this-gjx8.onrender.com/admincheck'
 
 router.beforeEach(async(to, _, next) => {
     window.scrollTo({

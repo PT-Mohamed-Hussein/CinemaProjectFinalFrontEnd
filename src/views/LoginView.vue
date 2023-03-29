@@ -56,11 +56,9 @@
 </template>
 
 <script>
-import { fromJSON } from "postcss";
 import { RouterLink } from "vue-router";
 
 import mix from "../mixin/mixins";
-import router from "../router";
 export default {
   components: { RouterLink },
   computed: {

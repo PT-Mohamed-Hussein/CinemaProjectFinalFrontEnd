@@ -26,7 +26,7 @@
 
 <script>
     import BaseContainer from '../../components/Dashboard/BaseContainer.vue';
-    const MOVIES_API = 'http://127.0.0.1:3500/movies/'
+    const MOVIES_API = 'https://watch-this-gjx8.onrender.com/movies/'
     export default {
         components: {BaseContainer},
         computed: {

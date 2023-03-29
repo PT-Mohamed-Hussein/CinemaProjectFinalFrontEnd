@@ -80,7 +80,7 @@
 import { RouterLink } from "vue-router";
 import fetchRequest from "../FetchApi";
  
-const GET_MYUSER_API = 'http://127.0.0.1:3500/user/getmyuserinfo'
+const GET_MYUSER_API = 'https://watch-this-gjx8.onrender.com/user/getmyuserinfo'
 
 export default {
   components: { RouterLink },

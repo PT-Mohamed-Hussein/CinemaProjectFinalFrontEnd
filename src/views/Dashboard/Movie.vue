@@ -130,7 +130,7 @@
 import BaseModal from '../../components/ui/BaseModal.vue'
 import fetchRequest from '../../FetchApi'
 
-const MOVIES_API = 'http://127.0.0.1:3500/movies/'
+const MOVIES_API = 'https://watch-this-gjx8.onrender.com/movies/'
 const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=140adb778fed4fe6d4165bd6f240f610&query='
 
 

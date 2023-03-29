@@ -27,7 +27,7 @@
 <script>
 import fetchRequest from '../FetchApi'
 import BasePanel from '../components/ui/BasePanel.vue'
-const GET_MYTICKETS_API = 'http://localhost:3500/tickets/mytickets'
+const GET_MYTICKETS_API = 'https://watch-this-gjx8.onrender.com/tickets/mytickets'
 export default {
     components:{BasePanel},
     async created(){

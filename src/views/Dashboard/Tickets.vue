@@ -16,7 +16,7 @@
 <script>
     import Ticket from '../../components/Dashboard/Ticket.vue';
     import fetchRequest from '../../FetchApi';
-    const TICKETS_API = 'http://127.0.0.1:3500/tickets'
+    const TICKETS_API = 'https://watch-this-gjx8.onrender.com/tickets'
     export default {
         components:{
             Ticket
